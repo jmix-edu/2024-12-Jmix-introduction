@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://projectTasksView.title">
+
+    <data>
+        <collection id="tasksDc" class="com.company.jmixpm.entity.Task">
+            <fetchPlan extends="_base">
+                <property name="assignee" fetchPlan="_base"/>
+                <property name="project" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="tasksDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from pm_Task e where e.project.id = :projectId]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <dataGrid id="tasksDataGrid" dataContainer="tasksDc" minWidth="20em" width="100%">
+            <actions/>
+            <columns>
+                <column property="name"/>
+                <column property="project"/>
+                <column property="assignee"/>
+                <column property="dueDate"/>
+                <column property="priority"/>
+            </columns>
+        </dataGrid>
+
+    </layout>
+</view>

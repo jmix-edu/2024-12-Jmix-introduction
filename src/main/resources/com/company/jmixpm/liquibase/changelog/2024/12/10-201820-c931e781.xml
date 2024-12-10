@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="pm">
+        <createTable tableName="PM_DOCUMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_DOCUMENT"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="PROJECT" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_" type="VARCHAR(1024)"/>
+            <column name="NOTES" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="pm">
+        <addColumn tableName="PM_TASK">
+            <column name="ESTIMATED_EFFORTS" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="pm">
+        <addColumn tableName="PM_PROJECT">
+            <column name="MANAGER_ID" type="UUID"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="4" author="pm">
+        <createIndex indexName="IDX_PM_PROJECT_MANAGER" tableName="PM_PROJECT">
+            <column name="MANAGER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="PM_PROJECT"
+                                 constraintName="FK_PM_PROJECT_ON_MANAGER" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+</databaseChangeLog>
