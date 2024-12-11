@@ -59,7 +59,7 @@ public class TaskImportService {
                 .toList();
     }
 
-    private Project loadDefaultProject() {
+    public Project loadDefaultProject() {
         final Optional<Project> entity = dataManager.load(Project.class)
                 .query("select p from pm_Project p where p.defaultProject = :default")
                 .parameter("default", true)

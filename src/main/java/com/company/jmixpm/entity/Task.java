@@ -2,6 +2,7 @@ package com.company.jmixpm.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.data.DdlGeneration;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -9,11 +10,13 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@DdlGeneration(value = DdlGeneration.DbScriptGenerationMode.CREATE_AND_DROP)
 @JmixEntity
 @Table(name = "PM_TASK", indexes = {
-        @Index(name = "IDX_PM_TASK_UNQ_NAME", columnList = "NAME", unique = true),
         @Index(name = "IDX_PM_TASK_ASSIGNEE", columnList = "ASSIGNEE_ID"),
         @Index(name = "IDX_PM_TASK_PROJECT", columnList = "PROJECT_ID")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "IDX_PM_TASK_UNQ_NAME", columnNames = {"NAME"})
 })
 @Entity(name = "pm_Task")
 public class Task {
@@ -39,10 +42,12 @@ public class Task {
 
     @Column(name = "PRIORITY")
     private String priority;
+
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Project project;
+
     @Column(name = "ESTIMATED_EFFORTS")
     private Integer estimatedEfforts;
 
@@ -101,4 +106,5 @@ public class Task {
     public void setId(UUID id) {
         this.id = id;
     }
+
 }

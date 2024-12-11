@@ -28,7 +28,7 @@
                     <action id="clear" type="entity_clear"/>
                 </actions>
             </entityPicker>
-            <fileStorageUploadField id="fileField" clearButtonVisible="true" fileNameVisible="true" property="file"/>
+            <fileStorageUploadField id="fileField" clearButtonVisible="true" fileNameVisible="true" property="file" uploadIcon="FILE_ADD"/>
             <textArea id="notesField" height="9.5em" property="notes"/>
         </formLayout>
         <hbox id="detailActions">

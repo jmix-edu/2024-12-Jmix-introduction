@@ -38,6 +38,10 @@
             <button id="editButton" action="tasksDataGrid.edit"/>
             <button id="removeButton" action="tasksDataGrid.remove"/>
             <button id="importBtn" text="msg://importBtn.text" icon="FILE_ADD"/>
+            <fileStorageUploadField id="uploadTasksFromFileBtn"
+                                    uploadIcon="UPLOAD"
+                                    uploadText="msg://uploadTasksFromFileBtn.uploadText"
+                                    fileStoragePutMode="MANUAL"/>
             <simplePagination id="pagination" dataLoader="tasksDl" itemsPerPageDefaultValue="10"
                               itemsPerPageVisible="true"/>
         </hbox>

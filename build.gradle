@@ -43,6 +43,7 @@ dependencies {
     }
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
     implementation 'org.postgresql:postgresql'
+    implementation 'io.jmix.jmxconsole:jmix-jmxconsole-starter'
 }
 
 configurations.implementation {
