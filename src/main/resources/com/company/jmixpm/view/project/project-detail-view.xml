@@ -41,13 +41,13 @@
             </entityPicker>
             <textField id="projectLabelsField" property="projectLabels" readOnly="true"/>
         </formLayout>
-        <h3 text="msg://com.company.jmixpm.entity/Project.participants"/>
+        <h4 text="msg://com.company.jmixpm.entity/Project.participants"/>
         <hbox id="participantsButtonsPanel" classNames="buttons-panel">
             <button action="participantsDataGrid.add"/>
             <button action="participantsDataGrid.exclude"/>
             <button action="participantsDataGrid.create"/>
         </hbox>
-        <dataGrid id="participantsDataGrid" dataContainer="participantsDc" width="100%" height="100%">
+        <dataGrid id="participantsDataGrid" dataContainer="participantsDc" width="100%" minHeight="30em">
             <actions>
                 <action id="add" type="list_add"/>
                 <action id="exclude" type="list_exclude"/>
@@ -70,7 +70,7 @@
             <button action="tasksDataGrid.edit"/>
             <button action="tasksDataGrid.remove"/>
         </hbox>
-        <dataGrid id="tasksDataGrid" dataContainer="tasksDc" width="100%" height="100%">
+        <dataGrid id="tasksDataGrid" dataContainer="tasksDc" width="100%" minHeight="30em">
             <actions>
                 <action id="create" type="list_create">
                     <properties>

@@ -1,0 +1,12 @@
+<fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
+
+    <fetchPlan entity="pm_Project" name="project-with-tasks">
+        <property name="name"/>
+        <property name="status"/>
+        <property name="tasks">
+            <property name="estimatedEfforts"/>
+            <property name="name"/>
+        </property>
+    </fetchPlan>
+
+</fetchPlans>

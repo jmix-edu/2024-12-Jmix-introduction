@@ -51,6 +51,7 @@
                 </actions>
             </entityComboBox>
             <select id="priorityField" property="priority"/>
+            <textField id="estimatedEffortsField" property="estimatedEfforts"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

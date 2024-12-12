@@ -7,8 +7,8 @@
         <collection id="tasksDc"
                     class="com.company.jmixpm.entity.Task">
             <fetchPlan extends="_base">
-                <property name="assignee" fetchPlan="_instance_name"/>
-                <property name="project" fetchPlan="_instance_name"/>
+                <property name="project" fetchPlan="_base"/>
+                <property name="assignee" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="tasksDl" readOnly="true">
                 <query>
@@ -18,7 +18,11 @@
         </collection>
     </data>
     <facets>
-        <dataLoadCoordinator auto="true"/>
+        <dataLoadCoordinator auto="false">
+            <refresh loader="tasksDl">
+                <onViewEvent type="Init"/>
+            </refresh>
+        </dataLoadCoordinator>
         <urlQueryParameters>
             <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
@@ -61,6 +65,7 @@
                 <column property="assignee"/>
                 <column property="project"/>
                 <column property="priority"/>
+                <column property="estimatedEfforts"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

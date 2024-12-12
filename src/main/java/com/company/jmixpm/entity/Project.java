@@ -1,6 +1,7 @@
 package com.company.jmixpm.entity;
 
 import com.company.jmixpm.datatype.ProjectLabels;
+import com.company.jmixpm.validation.ProjectLabelsSize;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -58,8 +59,10 @@ public class Project {
     @Composition
     @OneToMany(mappedBy = "project")
     private List<Task> tasks;
-    //    @PropertyDatatype("projectLabels")
-//    @Convert(converter = ProjectLabelsConverter.class)
+
+    //  @PropertyDatatype("projectLabels")
+    //  @Convert(converter = ProjectLabelsConverter.class)
+    @ProjectLabelsSize(min = 3, max = 5)
     @Column(name = "PROJECT_LABELS")
     private ProjectLabels projectLabels;
     @DeletedBy
@@ -68,6 +71,16 @@ public class Project {
     @DeletedDate
     @Column(name = "DELETED_DATE")
     private OffsetDateTime deletedDate;
+    @Column(name = "TOTAL_ESTIMATED_EFFORTS")
+    private Integer totalEstimatedEfforts;
+
+    public Integer getTotalEstimatedEfforts() {
+        return totalEstimatedEfforts;
+    }
+
+    public void setTotalEstimatedEfforts(Integer totalEstimatedEfforts) {
+        this.totalEstimatedEfforts = totalEstimatedEfforts;
+    }
 
     public OffsetDateTime getDeletedDate() {
         return deletedDate;

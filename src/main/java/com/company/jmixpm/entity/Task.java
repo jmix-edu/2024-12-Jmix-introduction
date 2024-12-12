@@ -9,10 +9,7 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -56,6 +53,7 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Project project;
 
+    @Positive(message = "{msg://com.company.jmixpm.entity/Task.estimatedEfforts.validation.Positive}")
     @Column(name = "ESTIMATED_EFFORTS")
     private Integer estimatedEfforts;
     @DeletedBy
@@ -64,50 +62,6 @@ public class Task {
     @DeletedDate
     @Column(name = "DELETED_DATE")
     private OffsetDateTime deletedDate;
-    @CreatedBy
-    @Column(name = "CREATED_BY")
-    private String createdBy;
-    @CreatedDate
-    @Column(name = "CREATED_DATE")
-    private OffsetDateTime createdDate;
-    @LastModifiedBy
-    @Column(name = "LAST_MODIFIED_BY")
-    private String lastModifiedBy;
-    @LastModifiedDate
-    @Column(name = "LAST_MODIFIED_DATE")
-    private OffsetDateTime lastModifiedDate;
-
-    public OffsetDateTime getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(OffsetDateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public OffsetDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(OffsetDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 
     public OffsetDateTime getDeletedDate() {
         return deletedDate;

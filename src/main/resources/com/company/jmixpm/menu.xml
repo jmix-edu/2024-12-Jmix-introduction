@@ -7,6 +7,7 @@
         <item view="pm_Task.list" title="msg://com.company.jmixpm.view.task/taskListView.title"/>
         <item view="pm_TimeEntry.list" title="msg://com.company.jmixpm.view.timeentry/timeEntryListView.title"/>
         <item view="pm_Document.list" title="msg://com.company.jmixpm.view.document/documentListView.title"/>
+        <item view="pm_ProjectStatsView" title="msg://com.company.jmixpm.view.projectstats/projectStatsView.title"/>
     </menu>
 
 </menu-config>
