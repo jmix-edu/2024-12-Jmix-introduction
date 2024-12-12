@@ -1,16 +1,28 @@
 package com.company.jmixpm.view.project;
 
+import com.company.jmixpm.datatype.ProjectLabels;
 import com.company.jmixpm.entity.Project;
 import com.company.jmixpm.view.main.MainView;
 import com.vaadin.flow.router.Route;
-import io.jmix.flowui.view.EditedEntityContainer;
-import io.jmix.flowui.view.StandardDetailView;
-import io.jmix.flowui.view.ViewController;
-import io.jmix.flowui.view.ViewDescriptor;
+import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.view.*;
+
+import java.util.List;
 
 @Route(value = "projects/:id", layout = MainView.class)
 @ViewController(id = "pm_Project.detail")
 @ViewDescriptor(path = "project-detail-view.xml")
 @EditedEntityContainer("projectDc")
 public class ProjectDetailView extends StandardDetailView<Project> {
+    @ViewComponent
+    private TypedTextField<ProjectLabels> projectLabelsField;
+
+    @Subscribe
+    public void onInitEntity(final InitEntityEvent<Project> event) {
+        projectLabelsField.setReadOnly(false);
+
+        event.getEntity().setProjectLabels(new ProjectLabels(List.of("bug", "enhancement", "task")));
+    }
+    
+    
 }

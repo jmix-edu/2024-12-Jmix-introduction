@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="pm">
+        <createTable tableName="PM_DOCUMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_DOCUMENT"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="PROJECT_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_" type="VARCHAR(1024)"/>
+            <column name="NOTES" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="pm">
+        <createTable tableName="PM_PROJECT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_PROJECT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MANAGER_ID" type="UUID"/>
+            <column name="DESCRIPTION" type="CLOB"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+            <column name="DEFAULT_PROJECT" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFAULT_TASK_PRIORITY" type="VARCHAR(255)"/>
+            <column name="PROJECT_LABELS" type="varchar(500 BYTE)"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="pm">
+        <createTable tableName="PM_PROJECT_USER_LINK">
+            <column name="PROJECT_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_PROJECT_USER_LINK"/>
+            </column>
+            <column name="USER_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_PROJECT_USER_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="pm">
+        <createTable tableName="PM_TASK">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_TASK"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DUE_DATE" type="DATETIME"/>
+            <column name="ASSIGNEE_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRIORITY" type="VARCHAR(255)"/>
+            <column name="PROJECT_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ESTIMATED_EFFORTS" type="INT"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="pm">
+        <createTable tableName="PM_TIME_ENTRY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_TIME_ENTRY"/>
+            </column>
+            <column name="TASK_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TIME_SPENT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ENTRY_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="pm">
+        <addColumn tableName="PM_USER">
+            <column name="AVATAR" type="${byte[].type}"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="7" author="pm">
+        <createIndex indexName="IDX_PM_PROJECT_MANAGER" tableName="PM_PROJECT">
+            <column name="MANAGER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="PM_PROJECT"
+                                 constraintName="FK_PM_PROJECT_ON_MANAGER" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+    <changeSet id="8" author="pm" dbms="postgresql">
+        <createIndex indexName="IDX_PM_PROJECT_UNQ_NAME" tableName="PM_PROJECT" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+
+        <modifySql>
+            <append value="where DELETED_DATE is null"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="9" author="pm">
+        <createIndex indexName="IDX_PM_TASK_ASSIGNEE" tableName="PM_TASK">
+            <column name="ASSIGNEE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ASSIGNEE_ID" baseTableName="PM_TASK"
+                                 constraintName="FK_PM_TASK_ON_ASSIGNEE" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+    <changeSet id="10" author="pm">
+        <createIndex indexName="IDX_PM_TASK_PROJECT" tableName="PM_TASK">
+            <column name="PROJECT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROJECT_ID" baseTableName="PM_TASK"
+                                 constraintName="FK_PM_TASK_ON_PROJECT" referencedColumnNames="ID"
+                                 referencedTableName="PM_PROJECT"/>
+    </changeSet>
+    <changeSet id="11" author="pm" dbms="postgresql">
+        <createIndex indexName="IDX_PM_TASK_UNQ_NAME" tableName="PM_TASK" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+
+        <modifySql>
+            <append value="where DELETED_DATE is null"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="12" author="pm">
+        <createIndex indexName="IDX_PM_TIME_ENTRY_TASK" tableName="PM_TIME_ENTRY">
+            <column name="TASK_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TASK_ID" baseTableName="PM_TIME_ENTRY"
+                                 constraintName="FK_PM_TIME_ENTRY_ON_TASK" referencedColumnNames="ID"
+                                 referencedTableName="PM_TASK"/>
+    </changeSet>
+    <changeSet id="13" author="pm">
+        <createIndex indexName="IDX_PM_TIME_ENTRY_USER" tableName="PM_TIME_ENTRY">
+            <column name="USER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="PM_TIME_ENTRY"
+                                 constraintName="FK_PM_TIME_ENTRY_ON_USER" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+    <changeSet id="14" author="pm">
+        <dropIndex indexName="idx_pm_user_on_username" tableName="pm_user"/>
+    </changeSet>
+    <changeSet id="15" author="pm" dbms="postgresql">
+        <createIndex indexName="IDX_PM_USER_ON_USERNAME" tableName="PM_USER" unique="true">
+            <column name="USERNAME"/>
+        </createIndex>
+
+        <modifySql>
+            <append value="where DELETED_DATE is null"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="16" author="pm">
+        <addForeignKeyConstraint baseColumnNames="PROJECT_ID" baseTableName="PM_PROJECT_USER_LINK"
+                                 constraintName="FK_PMPROUSE_ON_PROJECT" referencedColumnNames="ID"
+                                 referencedTableName="PM_PROJECT"/>
+    </changeSet>
+    <changeSet id="17" author="pm">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="PM_PROJECT_USER_LINK"
+                                 constraintName="FK_PMPROUSE_ON_USER" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+    <changeSet id="18" author="pm">
+        <addForeignKeyConstraint baseColumnNames="PROJECT_ID" baseTableName="PM_DOCUMENT"
+                                 constraintName="FK_PM_DOCUMENT_ON_PROJECT" referencedColumnNames="ID"
+                                 referencedTableName="PM_PROJECT"/>
+    </changeSet>
+</databaseChangeLog>

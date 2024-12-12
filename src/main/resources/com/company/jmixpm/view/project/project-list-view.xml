@@ -59,6 +59,7 @@
                 <column property="defaultProject"/>
                 <column property="defaultTaskPriority"/>
                 <column property="manager"/>
+                <column property="projectLabels"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

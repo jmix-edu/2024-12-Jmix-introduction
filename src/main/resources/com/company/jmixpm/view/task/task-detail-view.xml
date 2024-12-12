@@ -17,7 +17,10 @@
                     <![CDATA[select e from pm_Project e]]>
                 </query>
             </loader>
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="participants" fetchPlan="_base"/>
+                <property name="tasks" fetchPlan="_base"/>
+            </fetchPlan>
         </collection>
     </data>
     <facets>
