@@ -1,35 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://timeEntryListView.title"
-      focusComponent="timeEntriesDataGrid">
+      title="msg://myTimeEntryListView.title">
     <data>
-        <collection id="timeEntriesDc"
-                    class="com.company.jmixpm.entity.TimeEntry">
+        <collection id="timeEntriesDc" class="com.company.jmixpm.entity.TimeEntry">
             <fetchPlan extends="_base">
                 <property name="task" fetchPlan="_base"/>
-                <property name="user" fetchPlan="_instance_name"/>
             </fetchPlan>
             <loader id="timeEntriesDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from pm_TimeEntry e]]>
+                    select e from pm_TimeEntry e
+                    where e.user.username = :current_user_username
                 </query>
             </loader>
         </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
-        <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
-            <pagination component="pagination"/>
-        </urlQueryParameters>
     </facets>
-    <actions>
-        <action id="selectAction" type="lookup_select"/>
-        <action id="discardAction" type="lookup_discard"/>
-    </actions>
     <layout>
-        <genericFilter id="genericFilter"
+        <genericFilter id="genericFiler"
                        dataLoader="timeEntriesDl">
             <properties include=".*"/>
         </genericFilter>
@@ -37,31 +26,29 @@
             <button id="createButton" action="timeEntriesDataGrid.create"/>
             <button id="editButton" action="timeEntriesDataGrid.edit"/>
             <button id="removeButton" action="timeEntriesDataGrid.remove"/>
+            <button id="copyBtn" action="timeEntriesDataGrid.copy"/>
             <simplePagination id="pagination" dataLoader="timeEntriesDl"/>
         </hbox>
         <dataGrid id="timeEntriesDataGrid"
-                  width="100%"
-                  minHeight="20em"
                   dataContainer="timeEntriesDc"
-                  columnReorderingAllowed="true">
+                  minWidth="30em"
+                  width="100%"
+                  columnReorderingAllowed="true"
+                  minHeight="20em">
             <actions>
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
                 <action id="remove" type="list_remove"/>
+                <action id="copy" text="msg://copy.actionText" icon="COPY" type="list_itemTracking"/>
             </actions>
             <columns resizable="true">
+                <column property="entryDate" autoWidth="true" flexGrow="0"/>
                 <column property="task"/>
-                <column property="timeSpent"/>
-                <column property="entryDate"/>
-                <column property="user"/>
-                <column property="status"/>
-                <column property="description"/>
-                <column property="rejectionReason"/>
+                <column property="timeSpent" autoWidth="true" flexGrow="0"/>
+                <column property="status" autoWidth="true" flexGrow="0"/>
+                <column property="description" flexGrow="2"/>
+                <column property="rejectionReason" flexGrow="2"/>
             </columns>
         </dataGrid>
-        <hbox id="lookupActions" visible="false">
-            <button id="selectButton" action="selectAction"/>
-            <button id="discardButton" action="discardAction"/>
-        </hbox>
     </layout>
 </view>

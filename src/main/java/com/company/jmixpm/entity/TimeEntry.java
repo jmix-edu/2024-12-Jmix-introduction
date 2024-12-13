@@ -45,9 +45,41 @@ public class TimeEntry {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @Column(name = "STATUS")
+    private String status;
     @Column(name = "DESCRIPTION")
     @Lob
     private String description;
+    @Column(name = "DESCRIPTION_COPY")
+    @Lob
+    private String descriptionCopy;
+    @Lob
+    @Column(name = "REJECTION_REASON")
+    private String rejectionReason;
+
+    public TimeEntryStatus getStatus() {
+        return status == null ? null : TimeEntryStatus.fromId(status);
+    }
+
+    public void setStatus(TimeEntryStatus status) {
+        this.status = status == null ? null : status.getId();
+    }
+
+    public String getDescriptionCopy() {
+        return descriptionCopy;
+    }
+
+    public void setDescriptionCopy(String descriptionCopy) {
+        this.descriptionCopy = descriptionCopy;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
 
     public String getDescription() {
         return description;

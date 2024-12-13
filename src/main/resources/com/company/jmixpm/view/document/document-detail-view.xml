@@ -17,10 +17,9 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        <formLayout id="form" dataContainer="documentDc">
+        <formLayout id="form" dataContainer="documentDc" width="100%" maxWidth="30em">
             <responsiveSteps>
                 <responsiveStep minWidth="0" columns="1"/>
-                <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
             <entityPicker id="projectField" property="project">
                 <actions>
@@ -28,8 +27,8 @@
                     <action id="clear" type="entity_clear"/>
                 </actions>
             </entityPicker>
-            <fileStorageUploadField id="fileField" clearButtonVisible="true" fileNameVisible="true" property="file" uploadIcon="FILE_ADD"/>
             <textArea id="notesField" height="9.5em" property="notes"/>
+            <fileStorageUploadField id="fileField" clearButtonVisible="true" fileNameVisible="true" property="file" uploadIcon="FILE_ADD"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

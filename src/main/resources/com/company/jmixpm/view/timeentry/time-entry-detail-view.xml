@@ -19,7 +19,6 @@
                 </query>
             </loader>
         </collection>
-
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -34,21 +33,34 @@
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
+            <textField id="timeSpentField" property="timeSpent">
+                <prefix>
+                    <icon icon="CLOCK"/>
+                </prefix>
+            </textField>
             <entityComboBox id="taskField" property="task" itemsContainer="tasksDc">
                 <actions>
                     <action id="entityLookup" type="entity_lookup"/>
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
+                <prefix>
+                    <icon icon="TASKS"/>
+                </prefix>
             </entityComboBox>
-            <textField id="timeSpentField" property="timeSpent"/>
             <dateTimePicker id="entryDateField" property="entryDate"/>
             <entityPicker id="userField" property="user">
                 <actions>
+                    <action id="assignSelf" icon="USER_CHECK" text="msg://actions.assignSelf.text"/>
                     <action id="entityLookup" type="entity_lookup"/>
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
+                <prefix>
+                    <icon icon="USER_CARD"/>
+                </prefix>
             </entityPicker>
-            <textArea id="descriptionField" height="9.5em" property="description"/>
+            <select id="statusField" property="status"/>
+            <textArea id="descriptionField" height="9.5em" property="description" colspan="2"/>
+            <textArea id="rejectionReasonField" height="9.5em" property="rejectionReason" colspan="2" required="true"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

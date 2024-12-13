@@ -19,7 +19,6 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -28,10 +27,20 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="documentsDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <propertyFilter id="notesFilter"
+                        property="notes"
+                        operation="CONTAINS"
+                        dataLoader="documentsDl"
+                        labelVisible="false"
+        width="100%" maxWidth="30em">
+            <textField id="notesFilterField"
+                       placeholder="Type something..."
+                       clearButtonVisible="true">
+                <prefix>
+                    <icon icon="SEARCH"/>
+                </prefix>
+            </textField>
+        </propertyFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="documentsDataGrid.create"/>
             <button id="editButton" action="documentsDataGrid.edit"/>

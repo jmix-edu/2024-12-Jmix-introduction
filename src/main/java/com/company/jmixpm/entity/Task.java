@@ -5,6 +5,7 @@ import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -30,7 +31,7 @@ public class Task {
     @Id
     private UUID id;
 
-    //    @InstanceName
+    @InstanceName
     @Column(name = "NAME", nullable = false)
     @NotNull
     private String name;
