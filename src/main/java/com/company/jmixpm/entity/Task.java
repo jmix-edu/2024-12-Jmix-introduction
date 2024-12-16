@@ -48,6 +48,8 @@ public class Task {
     @Column(name = "PRIORITY")
     private String priority;
 
+    @Column(name = "STATUS")
+    private String status;
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     @NotNull
@@ -63,6 +65,14 @@ public class Task {
     @DeletedDate
     @Column(name = "DELETED_DATE")
     private OffsetDateTime deletedDate;
+
+    public TaskStatus getStatus() {
+        return status == null ? null : TaskStatus.fromId(status);
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status == null ? null : status.getId();
+    }
 
     public OffsetDateTime getDeletedDate() {
         return deletedDate;

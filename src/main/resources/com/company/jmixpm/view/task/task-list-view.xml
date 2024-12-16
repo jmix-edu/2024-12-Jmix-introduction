@@ -66,6 +66,7 @@
                 <column property="project"/>
                 <column property="priority"/>
                 <column property="estimatedEfforts"/>
+                <column property="status"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

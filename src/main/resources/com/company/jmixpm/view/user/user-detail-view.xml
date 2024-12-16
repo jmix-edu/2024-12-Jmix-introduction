@@ -5,8 +5,11 @@
     <data>
         <instance id="userDc"
                   class="com.company.jmixpm.entity.User">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="projects" fetchPlan="_base"/>
+            </fetchPlan>
             <loader/>
+            <collection id="projectsDc" property="projects"/>
         </instance>
     </data>
     <actions>
@@ -33,7 +36,8 @@
                 <textField id="emailField" property="email"/>
                 <comboBox id="timeZoneField" property="timeZoneId" clearButtonVisible="true"/>
                 <checkbox id="activeField" property="active"/>
-                <fileUploadField id="avatarField" property="avatar" fileNameVisible="true" clearButtonVisible="true" uploadIcon="UPLOAD"/>
+                <fileUploadField id="avatarField" property="avatar" fileNameVisible="true" clearButtonVisible="true"
+                                 uploadIcon="UPLOAD"/>
             </formLayout>
             <image id="avatarImg"
                    width="16em"
@@ -41,8 +45,28 @@
                    dataContainer="userDc"
                    property="avatar"
                    themeNames="contain"/>
-
         </hbox>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="projectsDataGrid.add"/>
+            <button action="projectsDataGrid.exclude"/>
+        </hbox>
+        <dataGrid id="projectsDataGrid" dataContainer="projectsDc" width="100%" height="100%">
+            <actions>
+                <action id="add" type="list_add"/>
+                <action id="exclude" type="list_exclude"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="description"/>
+                <column property="status"/>
+                <column property="defaultProject"/>
+                <column property="defaultTaskPriority"/>
+                <column property="projectLabels"/>
+                <column property="deletedBy"/>
+                <column property="deletedDate"/>
+                <column property="totalEstimatedEfforts"/>
+            </columns>
+        </dataGrid>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
             <button id="closeButton" action="closeAction"/>

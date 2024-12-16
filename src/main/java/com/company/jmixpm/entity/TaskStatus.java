@@ -5,16 +5,14 @@ import io.jmix.core.metamodel.datatype.EnumClass;
 import org.springframework.lang.Nullable;
 
 
-public enum TimeEntryStatus implements EnumClass<String> {
+public enum TaskStatus implements EnumClass<String> {
 
-    NEW("new"),
-    APPROVED("approved"),
-    REJECTED("rejected"),
-    CLOSED("closed");
+    ACTIVE("active"),
+    INACTIVE("inactive");
 
     private final String id;
 
-    TimeEntryStatus(String id) {
+    TaskStatus(String id) {
         this.id = id;
     }
 
@@ -23,8 +21,8 @@ public enum TimeEntryStatus implements EnumClass<String> {
     }
 
     @Nullable
-    public static TimeEntryStatus fromId(String id) {
-        for (TimeEntryStatus at : TimeEntryStatus.values()) {
+    public static TaskStatus fromId(String id) {
+        for (TaskStatus at : TaskStatus.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

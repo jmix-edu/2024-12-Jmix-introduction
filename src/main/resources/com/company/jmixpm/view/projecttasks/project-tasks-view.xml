@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       title="msg://projectTasksView.title">
-
     <data>
         <collection id="tasksDc" class="com.company.jmixpm.entity.Task">
             <fetchPlan extends="_base">
@@ -24,8 +23,8 @@
                 <column property="assignee"/>
                 <column property="dueDate"/>
                 <column property="priority"/>
+                <column property="status"/>
             </columns>
         </dataGrid>
-
     </layout>
 </view>

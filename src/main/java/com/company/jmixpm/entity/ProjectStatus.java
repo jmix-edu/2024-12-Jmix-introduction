@@ -7,9 +7,8 @@ import org.springframework.lang.Nullable;
 
 public enum ProjectStatus implements EnumClass<String> {
 
-    NEW("A"),
-    IN_PROGRESS("B"),
-    COMPLETED("C");
+    OPEN("open"),
+    CLOSED("closed");
 
     private final String id;
 

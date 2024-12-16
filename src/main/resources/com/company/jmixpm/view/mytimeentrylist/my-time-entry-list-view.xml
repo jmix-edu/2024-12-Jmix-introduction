@@ -16,6 +16,12 @@
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFiler"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+<!--        <timer id="timer" delay="1000" autostart="true" repeating="true"/>-->
+        <settings auto="true"/>
     </facets>
     <layout>
         <genericFilter id="genericFiler"

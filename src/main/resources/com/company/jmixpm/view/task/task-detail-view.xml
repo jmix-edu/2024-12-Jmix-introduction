@@ -11,17 +11,17 @@
             </fetchPlan>
             <loader id="taskDl"/>
         </instance>
-        <collection id="projectsDc" class="com.company.jmixpm.entity.Project">
-            <loader id="projectsDl" readOnly="true">
-                <query>
-                    <![CDATA[select e from pm_Project e]]>
-                </query>
-            </loader>
-            <fetchPlan extends="_base">
-                <property name="participants" fetchPlan="_base"/>
-                <property name="tasks" fetchPlan="_base"/>
-            </fetchPlan>
-        </collection>
+        <!--        <collection id="projectsDc" class="com.company.jmixpm.entity.Project">-->
+        <!--            <loader id="projectsDl" readOnly="true">-->
+        <!--                <query>-->
+        <!--                    <![CDATA[select e from pm_Project e]]>-->
+        <!--                </query>-->
+        <!--            </loader>-->
+        <!--            <fetchPlan extends="_base">-->
+        <!--                <property name="participants" fetchPlan="_base"/>-->
+        <!--                <property name="tasks" fetchPlan="_base"/>-->
+        <!--            </fetchPlan>-->
+        <!--        </collection>-->
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -44,14 +44,25 @@
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
-            <entityComboBox id="projectField" property="project" itemsContainer="projectsDc">
+            <entityComboBox id="projectField" property="project">
                 <actions>
                     <action id="entityLookup" type="entity_lookup"/>
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
+                <itemsQuery class="com.company.jmixpm.entity.Project"
+                            searchStringFormat="(?i)%${inputString}%"
+                            escapeValueForLike="true">
+                    <fetchPlan extends="_base"/>
+                    <query>
+                        select p from pm_Project p
+                        where p.name like :searchString
+                        escape '\' order by p.name asc
+                    </query>
+                </itemsQuery>
             </entityComboBox>
             <select id="priorityField" property="priority"/>
             <textField id="estimatedEffortsField" property="estimatedEfforts"/>
+            <select id="statusField" property="status"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

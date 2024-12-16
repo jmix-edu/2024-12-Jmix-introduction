@@ -5,7 +5,10 @@ import com.company.jmixpm.app.TimeEntrySupport;
 import com.company.jmixpm.entity.TimeEntry;
 import com.company.jmixpm.view.main.MainView;
 import com.vaadin.flow.router.Route;
+import io.jmix.flowui.DialogWindows;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.facet.Timer;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,10 @@ public class MyTimeEntryListView extends StandardView {
     private DataGrid<TimeEntry> timeEntriesDataGrid;
     @Autowired
     private TimeEntrySupport timeEntrySupport;
+    @Autowired
+    private DialogWindows dialogWindows;
+    @Autowired
+    private Notifications notifications;
 
     @Subscribe("timeEntriesDataGrid.copy")
     public void onTimeEntriesDataGridCopy(final ActionPerformedEvent event) {
@@ -29,6 +36,16 @@ public class MyTimeEntryListView extends StandardView {
 
         TimeEntry copiedItem = timeEntrySupport.copy(selectedItem);
 
-        //todo open detail view
+        dialogWindows.detail(timeEntriesDataGrid)
+                .newEntity(copiedItem)
+                .open();
     }
+
+//    private int seconds = 0;
+//
+//    @Subscribe("timer")
+//    public void onTimerTimerAction(final Timer.TimerActionEvent event) {
+//        seconds += event.getSource().getDelay() / 1000;
+//        notifications.show("Timer tick", seconds + " seconds passed");
+//    }
 }

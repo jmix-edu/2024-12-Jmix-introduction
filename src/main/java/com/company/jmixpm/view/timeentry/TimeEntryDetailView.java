@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @ViewController(id = "pm_TimeEntry.detail")
 @ViewDescriptor(path = "time-entry-detail-view.xml")
 @EditedEntityContainer("timeEntryDc")
+@DialogMode(width = "30em")
 public class TimeEntryDetailView extends StandardDetailView<TimeEntry> {
 
     @Autowired
