@@ -9,6 +9,10 @@
         <item view="pm_Document.list" title="msg://com.company.jmixpm.view.document/documentListView.title"/>
         <item view="pm_ProjectStatsView" title="msg://com.company.jmixpm.view.projectstats/projectStatsView.title"/>
         <item view="pm_TimeEntry.my" title="msg://com.company.jmixpm.view.mytimeentrylist/myTimeEntryListView.title"/>
+        <item view="pm_Notification.list"
+              title="msg://com.company.jmixpm.view.notification/notificationListView.title"/>
+        <item view="pm_MyNotificationsView"
+              title="msg://com.company.jmixpm.view.mynotifications/myNotificationsView.title"/>
     </menu>
 
 </menu-config>

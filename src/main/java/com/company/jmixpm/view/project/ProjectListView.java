@@ -3,10 +3,13 @@ package com.company.jmixpm.view.project;
 import com.company.jmixpm.datatype.ProjectLabels;
 import com.company.jmixpm.entity.Project;
 import com.company.jmixpm.entity.User;
+import com.company.jmixpm.security.specific.JmixpmProjectArchiveContext;
 import com.company.jmixpm.view.main.MainView;
 import com.company.jmixpm.view.projecttasks.ProjectTasksView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import io.jmix.core.AccessManager;
 import io.jmix.core.DataManager;
 import io.jmix.core.UnconstrainedDataManager;
 import io.jmix.core.security.CurrentAuthentication;
@@ -16,13 +19,13 @@ import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.view.*;
-import io.jmix.flowui.view.builder.WindowBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 
+@AnonymousAllowed
 @Route(value = "projects", layout = MainView.class)
 @ViewController(id = "pm_Project.list")
 @ViewDescriptor(path = "project-list-view.xml")
@@ -42,6 +45,8 @@ public class ProjectListView extends StandardListView<Project> {
     private DataManager dataManager;
     @Autowired
     private UnconstrainedDataManager unconstrainedDataManager;
+    @Autowired
+    private AccessManager accessManager;
 
     @Subscribe("projectsDataGrid.showTasks")
     public void onProjectsDataGridShowTasks(final ActionPerformedEvent event) {
@@ -64,4 +69,27 @@ public class ProjectListView extends StandardListView<Project> {
         Project saved = unconstrainedDataManager.save(project);
         projectsDc.getMutableItems().add(saved);
     }
+
+
+    @Install(to = "projectsDataGrid.archiveAction", subject = "enabledRule")
+    private boolean projectsDataGridArchiveEnabledRule() {
+        JmixpmProjectArchiveContext context = new JmixpmProjectArchiveContext();
+        accessManager.applyRegisteredConstraints(context);
+        return context.isPermitted();
+    }
+
+    @Subscribe("projectsDataGrid.archiveAction")
+    public void onProjectsDataGridArchiveAction(final ActionPerformedEvent event) {
+        Project toChange = projectsDataGrid.getSingleSelectedItem();
+        toChange.setArchive(!toChange.getArchive());
+        dataManager.save(toChange);
+    }
+
+//    @Install(to = "projectsDataGrid.status", subject = "partNameGenerator")
+//    private String projectsDataGridStatusPartNameGenerator(final Project project) {
+//        return switch (project.getStatus()) {
+//            case OPEN -> "open-project";
+//            case CLOSED -> "closed-project";
+//        };
+//    }
 }

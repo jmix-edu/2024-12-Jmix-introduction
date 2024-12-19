@@ -15,6 +15,8 @@
         </collection>
     </data>
     <layout>
+
+        <button id="button"/>
         <dataGrid id="tasksDataGrid" dataContainer="tasksDc" minWidth="20em" width="100%">
             <actions/>
             <columns>
@@ -26,5 +28,7 @@
                 <column property="status"/>
             </columns>
         </dataGrid>
+
+
     </layout>
 </view>

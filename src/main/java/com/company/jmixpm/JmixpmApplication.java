@@ -5,6 +5,8 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
+import io.jmix.core.repository.EnableJmixDataRepositories;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +25,7 @@ import javax.sql.DataSource;
 @Theme(value = "jmixpm")
 @PWA(name = "Jmixpm", shortName = "Jmixpm")
 @SpringBootApplication
+//@EnableJmixDataRepositories
 public class JmixpmApplication implements AppShellConfigurator {
 
     @Autowired
@@ -30,13 +33,6 @@ public class JmixpmApplication implements AppShellConfigurator {
 
     public static void main(String[] args) {
         SpringApplication.run(JmixpmApplication.class, args);
-    }
-
-    @Bean
-    @Primary
-    @ConfigurationProperties("main.datasource")
-    DataSourceProperties dataSourceProperties() {
-        return new DataSourceProperties();
     }
 
     @Bean

@@ -7,6 +7,7 @@ import io.jmix.core.DataManager;
 import io.jmix.core.EntitySet;
 import io.jmix.core.SaveContext;
 import io.jmix.core.security.CurrentAuthentication;
+import io.jmix.flowui.Notifications;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,12 @@ public class TaskImportService {
 
     private final DataManager dataManager;
     private final CurrentAuthentication currentAuthentication;
+    private final Notifications notifications;
 
-    public TaskImportService(DataManager dataManager, CurrentAuthentication currentAuthentication) {
+    public TaskImportService(DataManager dataManager, CurrentAuthentication currentAuthentication, Notifications notifications) {
         this.dataManager = dataManager;
         this.currentAuthentication = currentAuthentication;
+        this.notifications = notifications;
     }
 
     public int importTasks() {
@@ -66,5 +69,7 @@ public class TaskImportService {
                 .optional();
 
         return entity.orElse(null);
+
+
     }
 }

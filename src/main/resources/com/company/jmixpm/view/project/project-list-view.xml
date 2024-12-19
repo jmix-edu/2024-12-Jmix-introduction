@@ -38,6 +38,7 @@
             <button id="removeButton" action="projectsDataGrid.remove"/>
             <button id="showTasksBtn" action="projectsDataGrid.showTasks"/>
             <button id="createWithDM" text="msg://createWithDM"/>
+            <button id="archiveButton" action="projectsDataGrid.archiveAction"/>
             <simplePagination id="pagination" dataLoader="projectsDl"/>
         </hbox>
         <dataGrid id="projectsDataGrid"
@@ -45,13 +46,14 @@
                   minHeight="20em"
                   dataContainer="projectsDc"
                   columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  selectionMode="SINGLE">
             <actions>
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
                 <action id="remove" type="list_remove"/>
                 <action id="showTasks" text="msg://showTasks.text" icon="LIST" actionVariant="SUCCESS"
                         type="list_itemTracking"/>
+                <action id="archiveAction" type="list_itemTracking" text="msg://archive.text"/>
             </actions>
             <columns resizable="true">
                 <column property="name"/>
@@ -62,6 +64,7 @@
                 <column property="manager"/>
                 <column property="projectLabels"/>
                 <column property="totalEstimatedEfforts"/>
+                <column property="archive"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

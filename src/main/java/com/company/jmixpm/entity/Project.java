@@ -62,7 +62,7 @@ public class Project {
 
     //  @PropertyDatatype("projectLabels")
     //  @Convert(converter = ProjectLabelsConverter.class)
-    @ProjectLabelsSize(min = 3, max = 5)
+//    @ProjectLabelsSize(min = 3, max = 5)
     @Column(name = "PROJECT_LABELS")
     private ProjectLabels projectLabels;
     @DeletedBy
@@ -73,6 +73,17 @@ public class Project {
     private OffsetDateTime deletedDate;
     @Column(name = "TOTAL_ESTIMATED_EFFORTS")
     private Integer totalEstimatedEfforts;
+    @Column(name = "ARCHIVE", nullable = false)
+    @NotNull
+    private Boolean archive = false;
+
+    public Boolean getArchive() {
+        return archive;
+    }
+
+    public void setArchive(Boolean archive) {
+        this.archive = archive;
+    }
 
     public Integer getTotalEstimatedEfforts() {
         return totalEstimatedEfforts;

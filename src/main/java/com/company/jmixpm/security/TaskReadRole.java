@@ -13,8 +13,8 @@ import io.jmix.securityflowui.role.annotation.ViewPolicy;
 public interface TaskReadRole {
     String CODE = "task-read";
 
-    @MenuPolicy(menuIds = "pm_Task.list")
-    @ViewPolicy(viewIds = "pm_Task.list")
+    @MenuPolicy(menuIds = {"pm_Task.list", "pm_TimeEntry.my"})
+    @ViewPolicy(viewIds = {"pm_Task.list", "pm_TimeEntry.my"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Task.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)

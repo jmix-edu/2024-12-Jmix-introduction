@@ -36,7 +36,7 @@
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
-            <textField id="nameField" property="name"/>
+            <textField id="nameField" property="name" classNames="bordered"/>
             <dateTimePicker id="dueDateField" property="dueDate"/>
             <entityPicker id="assigneeField" property="assignee">
                 <actions>

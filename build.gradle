@@ -2,6 +2,8 @@ plugins {
     id 'io.jmix' version '2.4.1'
     id 'java'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
+    id 'org.gauge' version '2.1.0'
+    id 'com.palantir.docker' version '0.36.0'
 }
 
 apply plugin: 'org.springframework.boot'
@@ -34,16 +36,37 @@ dependencies {
     implementation 'io.jmix.flowui:jmix-flowui-themes'
     implementation 'io.jmix.datatools:jmix-datatools-starter'
     implementation 'io.jmix.datatools:jmix-datatools-flowui-starter'
-
+    implementation 'io.jmix.jmxconsole:jmix-jmxconsole-starter'
+    implementation 'org.postgresql:postgresql'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:4.1.2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+
+    implementation 'com.hazelcast:hazelcast'
+
+    modules {
+        module('org.springframework.boot:spring-boot-starter-tomcat') {
+            replacedBy('org.springframework.boot:spring-boot-starter-undertow')
+        }
+    }
 
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
-    implementation 'org.postgresql:postgresql'
-    implementation 'io.jmix.jmxconsole:jmix-jmxconsole-starter'
+
+    testImplementation 'org.testcontainers:postgresql:1.17.6'
+    testRuntimeOnly 'org.postgresql:postgresql:42.5.1'
+
+    testImplementation group: 'com.codeborne', name: 'selenide', version: '7.2.0'
+    testImplementation 'com.thoughtworks.gauge:gauge-java:0.10.3'
+
+    implementation 'io.jmix.charts:jmix-charts-flowui-starter'
 }
 
 configurations.implementation {
@@ -63,4 +86,15 @@ idea {
 
 vaadin {
     optimizeBundle = false
+}
+
+docker {
+    dependsOn(tasks.bootJar)
+    name "$rootProject.name:$version"
+    dockerfile file('docker/Dockerfile-layered')
+    files tasks.bootJar.outputs
+}
+
+bootBuildImage {
+    imageName = "jmix_pm_boot_image"
 }

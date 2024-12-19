@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="pm">
+        <createTable tableName="PM_NOTIFICATION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PM_NOTIFICATION"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(255)"/>
+            <column name="TEXT" type="CLOB"/>
+            <column name="SENDER_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECIPIENT_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_READ" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="pm">
+        <createIndex indexName="IDX_PM_NOTIFICATION_RECIPIENT" tableName="PM_NOTIFICATION">
+            <column name="RECIPIENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="RECIPIENT_ID" baseTableName="PM_NOTIFICATION"
+                                 constraintName="FK_PM_NOTIFICATION_ON_RECIPIENT" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+    <changeSet id="3" author="pm">
+        <createIndex indexName="IDX_PM_NOTIFICATION_SENDER" tableName="PM_NOTIFICATION">
+            <column name="SENDER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SENDER_ID" baseTableName="PM_NOTIFICATION"
+                                 constraintName="FK_PM_NOTIFICATION_ON_SENDER" referencedColumnNames="ID"
+                                 referencedTableName="PM_USER"/>
+    </changeSet>
+</databaseChangeLog>

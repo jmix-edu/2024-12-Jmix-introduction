@@ -1,2 +1,78 @@
 /* Define your styles here */
 
+html {
+  --lumo-border-radius: calc(var(--lumo-size-m) / 2);
+  --lumo-size-xl: 4rem;
+  --lumo-size-l: 3rem;
+  --lumo-size-m: 2.5rem;
+  --lumo-size-s: 2rem;
+  --lumo-size-xs: 1.75rem;
+  --lumo-space-xl: 2.5rem;
+  --lumo-space-l: 1.75rem;
+  --lumo-space-m: 1.125rem;
+  --lumo-space-s: 0.75rem;
+  --lumo-space-xs: 0.375rem;
+  --lumo-primary-text-color: rgb(114, 22, 243);
+  --lumo-primary-color-50pct: rgba(114, 22, 243, 0.5);
+  --lumo-primary-color-10pct: rgba(114, 22, 243, 0.1);
+  --lumo-error-text-color: rgb(255, 56, 103);
+  --lumo-error-color-50pct: rgba(255, 56, 103, 0.5);
+  --lumo-error-color-10pct: rgba(255, 56, 103, 0.1);
+  --lumo-success-text-color: rgb(20, 184, 143);
+  --lumo-success-color-50pct: rgba(20, 184, 143, 0.5);
+  --lumo-success-color-10pct: rgba(20, 184, 143, 0.1);
+  --lumo-primary-color: hsl(265, 90%, 52%);
+  --lumo-error-color: hsl(346, 100%, 61%);
+  --lumo-success-color: hsl(165, 80%, 40%);
+  --lumo-header-text-color: hsl(285, 35%, 15%);
+  --lumo-body-text-color: hsla(285, 40%, 16%, 0.94);
+  --lumo-secondary-text-color: hsla(285, 42%, 18%, 0.72);
+  --lumo-tertiary-text-color: hsla(285, 45%, 20%, 0.5);
+  --lumo-disabled-text-color: hsla(285, 50%, 22%, 0.26);
+
+
+}
+
+/*
+vaadin-text-field.bordered::part(input-field) {
+  background: white;
+  border: 1px solid black;
+}
+
+vaadin-text-field > label {
+  font-weight: bold;
+}
+
+vaadin-button[disabled] {
+  background: lightgray;
+  color: darkgray;
+}
+
+vaadin-button[theme~="primary"] {
+  background-color: purple;
+}
+*/
+
+vaadin-button:not([theme~="tertiary"]),
+vaadin-menu-bar[jmix-role~="jmix-dropdown-button"] > vaadin-menu-bar-button,
+vaadin-menu-bar[jmix-role*="jmix-combo-button"] > vaadin-menu-bar-button {
+    background-image: linear-gradient(var(--lumo-tint-5pct), var(--lumo-shade-5pct));
+    outline: 1px solid var(--lumo-contrast-20pct);
+}
+
+jmix-login-form vaadin-login-form-wrapper {
+    border-radius: var(--lumo-border-radius-m);
+    box-shadow: var(--lumo-box-shadow-s);
+}
+
+vaadin-grid::part(open-project) {
+    color: var(--lumo-success-text-color);
+}
+
+vaadin-grid::part(closed-project) {
+    color: var(--lumo-error-text-color);
+}
+
+.footer-panel {
+    background-color: var(--lumo-contrast-5pct);
+}

@@ -4,11 +4,13 @@ import com.company.jmixpm.entity.TimeEntry;
 import com.company.jmixpm.event.TimeEntryStatusChangedEvent;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import io.jmix.core.DataManager;
 import io.jmix.core.LoadContext;
 import io.jmix.core.Metadata;
 import io.jmix.flowui.app.main.StandardMainView;
 import io.jmix.flowui.component.main.JmixListMenu;
+import io.jmix.flowui.kit.component.main.ListMenu;
 import io.jmix.flowui.view.Subscribe;
 import io.jmix.flowui.view.ViewComponent;
 import io.jmix.flowui.view.ViewController;
@@ -16,6 +18,7 @@ import io.jmix.flowui.view.ViewDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 
+@AnonymousAllowed
 @Route("")
 @ViewController(id = "pm_MainView")
 @ViewDescriptor(path = "main-view.xml")
@@ -52,7 +55,12 @@ public class MainView extends StandardMainView {
             badge.getElement().getThemeList().add("badge error");
         }
 
-        menu.getMenuItem("pm_TimeEntry.my").setSuffixComponent(badge);
+        ListMenu.MenuItem menuItem = menu.getMenuItem("pm_TimeEntry.my");
+        if (menuItem == null) {
+            return;
+        }
+
+        menuItem.setSuffixComponent(badge);
 
 
     }

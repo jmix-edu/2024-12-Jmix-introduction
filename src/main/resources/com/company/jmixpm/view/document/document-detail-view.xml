@@ -23,7 +23,7 @@
             </responsiveSteps>
             <entityPicker id="projectField" property="project">
                 <actions>
-                    <action id="lookup" type="entity_lookup"/>
+                    <action id="lookup" type="entity_lookup" icon="vaadin:accordion-menu"/>
                     <action id="clear" type="entity_clear"/>
                 </actions>
             </entityPicker>

@@ -13,8 +13,8 @@ import io.jmix.securityflowui.role.annotation.ViewPolicy;
 public interface DeveloperRole {
     String CODE = "developer";
 
-    @MenuPolicy(menuIds = {"pm_Project.list", "pm_Task.list", "pm_TimeEntry.list", "pm_TimeEntry.my"})
-    @ViewPolicy(viewIds = {"pm_Project.list", "pm_Task.list", "pm_TimeEntry.list", "pm_Project.detail", "pm_Task.detail", "pm_TimeEntry.detail", "pm_TimeEntry.my"})
+    @MenuPolicy(menuIds = {"pm_Project.list", "pm_Task.list", "pm_TimeEntry.list", "pm_TimeEntry.my", "pm_MyNotificationsView"})
+    @ViewPolicy(viewIds = {"pm_Project.list", "pm_Task.list", "pm_TimeEntry.list", "pm_Project.detail", "pm_Task.detail", "pm_TimeEntry.detail", "pm_TimeEntry.my", "pm_MyNotificationsView"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Project.class, attributes = "tasks", action = EntityAttributePolicyAction.MODIFY)
@@ -36,4 +36,8 @@ public interface DeveloperRole {
     @EntityAttributePolicy(entityClass = User.class, attributes = {"firstName", "lastName", "username"}, action = EntityAttributePolicyAction.VIEW)
     @EntityPolicy(entityClass = User.class, actions = EntityPolicyAction.READ)
     void user();
+
+    @EntityAttributePolicy(entityClass = Notification.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = Notification.class, actions = EntityPolicyAction.READ)
+    void notification();
 }

@@ -36,7 +36,7 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="3" author="jmixpm" context="!cuba">
+    <changeSet id="3" author="jmixpm" context="!cuba, dev">
 
         <insert tableName="PM_USER" dbms="postgresql, mssql, hsqldb">
             <column name="ID" value="60885987-1b61-4247-94c7-dff348347f93"/>
@@ -56,7 +56,7 @@
 
     </changeSet>
 
-    <changeSet id="4" author="jmixpm" context="!cuba">
+    <changeSet id="4" author="jmixpm" context="!cuba, dev">
 
         <insert tableName="SEC_ROLE_ASSIGNMENT" dbms="postgresql, mssql, hsqldb">
             <column name="ID" value="6c9e420a-2b7a-4c42-8654-a9027ee14083"/>
