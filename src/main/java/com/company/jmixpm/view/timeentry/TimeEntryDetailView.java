@@ -26,14 +26,18 @@ import java.time.LocalDateTime;
 @EditedEntityContainer("timeEntryDc")
 @DialogMode(width = "30em")
 public class TimeEntryDetailView extends StandardDetailView<TimeEntry> {
-
     @Autowired
     private CurrentAuthentication currentAuthentication;
+
     @ViewComponent
     private JmixSelect<TimeEntryStatus> statusField;
     @ViewComponent
     private JmixTextArea rejectionReasonField;
 
+    @Subscribe
+    public void onInitEntity(final InitEntityEvent<TimeEntry> event) {
+        event.getEntity().setStatus(TimeEntryStatus.NEW);
+    }
 
     @Subscribe("userField.assignSelf")
     public void onUserFieldAssignSelf(final ActionPerformedEvent event) {

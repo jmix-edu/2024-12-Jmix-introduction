@@ -58,10 +58,10 @@ public class ProjectsDashboardView extends StandardView {
             card.add(image);
 
             Span firstNameSpan = uiComponents.create(Span.class);
-            firstNameSpan.setText(messageBundle.formatMessage("firstName", p.getManagerFirstName()));
+            firstNameSpan.setText("First name: " + p.getManagerFirstName());
             card.add(firstNameSpan);
             Span lastNameSpan = uiComponents.create(Span.class);
-            lastNameSpan.setText(messageBundle.formatMessage("lastName", p.getManagerLastName()));
+            lastNameSpan.setText("Last name: " + p.getManagerLastName());
             card.add(lastNameSpan);
 
             Span efficiencySpan = uiComponents.create(Span.class);

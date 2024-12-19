@@ -73,8 +73,29 @@ public class User implements JmixUserDetails, HasTimeZone {
     @DeletedDate
     @Column(name = "DELETED_DATE")
     private OffsetDateTime deletedDate;
+    @Column(name = "ACTIVATION_TOKEN")
+    private String activationToken;
+    @Column(name = "NEEDS_ACTIVATION", nullable = false)
+    @NotNull
+    private Boolean needsActivation = false;
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
+
+    public Boolean getNeedsActivation() {
+        return needsActivation;
+    }
+
+    public void setNeedsActivation(Boolean needsActivation) {
+        this.needsActivation = needsActivation;
+    }
+
+    public String getActivationToken() {
+        return activationToken;
+    }
+
+    public void setActivationToken(String activationToken) {
+        this.activationToken = activationToken;
+    }
 
     public OffsetDateTime getDeletedDate() {
         return deletedDate;

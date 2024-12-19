@@ -1,6 +1,7 @@
 package com.company.jmixpm.view.timeentry;
 
 import com.company.jmixpm.entity.TimeEntry;
+import com.company.jmixpm.entity.TimeEntryStatus;
 import com.company.jmixpm.view.main.MainView;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -24,6 +25,10 @@ public class TimeEntryListView extends StandardListView<TimeEntry> {
     @Supply(to = "timeEntriesDataGrid.status", subject = "renderer")
     private Renderer<TimeEntry> timeEntriesDataGridStatusRenderer() {
         return new ComponentRenderer<>(Span::new, (span, timeEntry) -> {
+            TimeEntryStatus status = timeEntry.getStatus();
+            if (status == null) {
+                return;
+            }
             String theme = switch (timeEntry.getStatus()) {
                 case NEW -> "";
                 case APPROVED -> "success";

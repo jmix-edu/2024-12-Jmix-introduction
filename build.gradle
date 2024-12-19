@@ -67,6 +67,8 @@ dependencies {
     testImplementation 'com.thoughtworks.gauge:gauge-java:0.10.3'
 
     implementation 'io.jmix.charts:jmix-charts-flowui-starter'
+    implementation 'io.jmix.email:jmix-email-flowui-starter'
+    implementation 'io.jmix.email:jmix-email-starter'
 }
 
 configurations.implementation {

@@ -2,6 +2,8 @@ package com.company.jmixpm.view.project;
 
 import com.company.jmixpm.datatype.ProjectLabels;
 import com.company.jmixpm.entity.Project;
+import com.company.jmixpm.entity.ProjectStats;
+import com.company.jmixpm.entity.ProjectStatus;
 import com.company.jmixpm.entity.User;
 import com.company.jmixpm.security.specific.JmixpmProjectArchiveContext;
 import com.company.jmixpm.view.main.MainView;
@@ -85,11 +87,17 @@ public class ProjectListView extends StandardListView<Project> {
         dataManager.save(toChange);
     }
 
-//    @Install(to = "projectsDataGrid.status", subject = "partNameGenerator")
-//    private String projectsDataGridStatusPartNameGenerator(final Project project) {
-//        return switch (project.getStatus()) {
-//            case OPEN -> "open-project";
-//            case CLOSED -> "closed-project";
-//        };
-//    }
+    @Install(to = "projectsDataGrid.status", subject = "partNameGenerator")
+    private String projectsDataGridStatusPartNameGenerator(final Project project) {
+        ProjectStatus status = project.getStatus();
+        if (status == null) {
+            return "";
+        } else {
+
+            return switch (status) {
+                case OPEN -> "open-project";
+                case CLOSED -> "closed-project";
+            };
+        }
+    }
 }
